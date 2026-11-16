@@ -27,7 +27,7 @@ object BarangayLoader {
                 val name = props.optString("name")
                 if (name.isBlank()) continue
 
-                val c = geometry.getJSONArray("coordinates") // [longitude, latitude]
+                val c = geometry.getJSONArray("coordinates") // [lon, lat]
                 result.add(BarangayPoint(name, LatLng(c.getDouble(1), c.getDouble(0))))
             }
             result.distinctBy { it.name }.sortedBy { it.name }
@@ -36,4 +36,8 @@ object BarangayLoader {
             emptyList()
         }
     }
+
+    /** Name of the barangay whose center is closest to the tapped point. */
+    fun nearest(barangays: List<BarangayPoint>, point: LatLng): BarangayPoint? =
+        barangays.minByOrNull { RouteSequencer.calculateDistance(it.latLng, point) }
 }

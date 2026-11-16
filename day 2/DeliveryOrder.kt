@@ -10,8 +10,14 @@ data class DeliveryOrder(
     val id: String,
     val customerName: String,
     val barangay: String,
+    val addressDetails: String,
     val latitude: Double,
     val longitude: Double,
     var status: OrderStatus = OrderStatus.PENDING,
-    var sequenceNumber: Int = 0
+    var sequenceNumber: Int = 0,
+
+    var riderId: Int = 0,
+    var etaMinutes: Double = 0.0,
+
+    val cashOnDelivery: Double = 0.0
 )
